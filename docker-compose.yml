@@ -1,0 +1,12 @@
+version: '3'
+services:
+    synatic_api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            ENV_NAME: stage
+        env_file: .env
+        ports:
+            - 4000:4000
+        restart: always
