@@ -14,7 +14,7 @@ COPY package*.json ./
 RUN npm i  
 
 # Copy the rest of the code
-ADD . /usr/src/app              
+COPY . /usr/src/app                
 
 # Invoke the build script to transpile code to js
 RUN npm run build       
@@ -24,7 +24,7 @@ RUN npm run build
 FROM builder AS final
 
 # Prepare destination directory and ensure user node owns it
-RUN mkdir -p /usr/src/app/dist && chown -R node:node /usr/src/app
+RUN mkdir -p /usr/src/app && chown -R node:node /usr/src/app
 
 # Set CWD
 WORKDIR /usr/src/app
@@ -42,11 +42,10 @@ RUN npm install pm2 -g
 USER node
 
 # Copy js files and change ownership to user node
-COPY --chown=node:node --from=builder /usr/src/app/dist /usr/src/app
+COPY --chown=node:node --from=builder /usr/src/app/src /usr/src/app
 
 # Open desired port
 EXPOSE 4000
 
 # Use js files to run the application
-# ENTRYPOINT ["node", "./dist/index.js"] 
-CMD ["pm2-runtime", "./dist/index.js"] 
+CMD ["pm2-runtime", "/usr/src/app/index.js"] 
