@@ -107,16 +107,18 @@ const getAllCustomersRelatedInfo = async (
 
         await Promise.all(
             customers.map(async (customer: ICustomer) => {
-                customer.accounts.map(async (x: any) => {
-                    //get account transactions
-                    const transactions = await getTransactions({
-                        query: { account_id: x.account_id },
-                    });
+                await Promise.all(
+                    customer.accounts.map(async (x: any) => {
+                        //get account transactions
+                        const transactions = await getTransactions({
+                            query: { account_id: x.account_id },
+                        });
 
-                    // update result
-                    customer.account_details = transactions;
-                    finalResult.push(customer);
-                });
+                        // update result
+                        customer.account_details = transactions;
+                        finalResult.push(customer);
+                    }),
+                );
             }),
         );
 
@@ -161,7 +163,6 @@ const saveAsCSV = async (data: ICustomer[]) => {
 const formattedQuery = (req: any, field: string, filterName: string) => {
     let fieldValues: any = req.query[field];
     let query = '$filter=';
-    console.log({ fieldValues });
 
     if (!isEmpty(fieldValues)) {
         //@ts-ignore

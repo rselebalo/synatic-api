@@ -25,6 +25,15 @@ These instructions will get you a copy of the project up and running on your loc
 -   Copy variables from .env.example
 -   Update variable values with yours
 
+## Testing Examples
+
+-   Example endpoints calls http://localhost:4000/api/customers?emails=email1@gmail.com,email2@hotmail.com
+-   Example endpoints calls http://localhost:4000/api/enriched_customers?emails=email1@gmail.com,email2@hotmail.com
+-   Example endpoints calls http://localhost:4000/api/accounts
+-   Example endpoints calls http://localhost:4000/api/accounts?account_id=409845
+-   Example endpoints calls http://localhost:4000/api/transactions?
+-   Example endpoints calls http://localhost:4000/api/transactions?account_id=371138
+
 ## Running the project
 
     $ npm run start:dev
