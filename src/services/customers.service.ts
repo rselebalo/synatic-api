@@ -114,8 +114,6 @@ const getAllCustomersRelatedInfo = async (
                     });
 
                     // update result
-                    console.log({ transactions });
-
                     customer.account_details = transactions;
                     finalResult.push(customer);
                 });
